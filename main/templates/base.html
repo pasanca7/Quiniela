@@ -1,0 +1,137 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+	<style>
+
+p, a, h1, h2, h3 {
+	font-family: "Verdana";
+}
+
+article {
+	margin: 1.5%;
+}
+	
+ul {
+	font-family: "Verdana";
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+		font-family: "Verdana";
+	
+	float: left;
+	border-right: 1px solid #bbb;
+}
+	
+li:last-child {
+	font-family: "Verdana";
+	border-right: none;
+}
+	
+li a {
+	font-family: "Verdana";
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+	
+li a:hover:not (.active ) {
+	font-family: "Verdana";
+	background-color: #111;
+}
+	
+.active {
+	background-color: #4CAF50;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+  width: 90%;
+}
+
+td {
+	font-family: "Verdana";
+  	border: 1px solid #dddddd;
+  	text-align: left;
+  	padding: 8px;
+}
+
+tr:nth-child(even) {
+	font-family: "Verdana";
+  	background-color: #dddddd;
+}
+
+th {
+	font-family: "Verdana";
+	 background-color: black;
+	 color: white;
+	 border: 1px solid #dddddd;
+	 text-align: left;
+	 padding: 8px;
+}
+
+.normal {
+	margin: 2%;
+	background-color: white;
+}
+
+.all {
+	margin: 0;
+	padding: 5px;
+	background-color: lightgray;
+}
+
+.noticia {
+	background-color: white;
+	vertical-align: top;
+	border: none;	
+}
+
+.noticiaDerecha {
+	background-color: white;
+	vertical-align: top;
+	border-right: none;
+	border-bottom: none;
+	border-top: none;
+	
+}
+
+.buscador {
+	margin-left: 5%;
+	font-family: "Verdana";
+}
+
+.tablaNoticias {
+	border-left: 0px;
+}
+
+.inicio {
+	margin: 2%
+}
+
+.confirmacion {
+		margin: 2%
+}
+
+.login {
+		margin: 2%
+}
+	</style>
+</head>
+<body>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

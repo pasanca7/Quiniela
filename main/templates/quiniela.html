@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Quiniela!{% endblock %}
+	
+{% block content %}
+	<ul>
+	  <li><a href="/">Inicio</a></li>
+	  <li><a class="active">Quiniela</a></li>
+	  <li><a href="/noticias">Noticias</a></li>
+	  {% if user.is_authenticated %}
+	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	</ul>
+	<h1 align="center">Temporada {{quiniela.temporada}}, jornada {{quiniela.jornada}}</h1>
+	
+	<table>
+		<tr>
+			<th>N</th>
+			<th>Local</th>
+			<th>Visitante</th>
+			<th colspan="2">Quiniela 1</th>
+			
+		</tr>
+			{% for row in partidos %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ row.local }}</td>
+			<td>{{ row.visitante }}</td>
+			{% if user in row.votantes.all %}
+				<td><b>1:</b>{%  widthratio row.uno row.votantes.all|length 100 %}%   <b>X:</b>{%  widthratio row.x row.votantes.all|length 100 %}%   <b>2</b>:{%  widthratio row.dos row.votantes.all|length 100 %}%</td>
+			{% else %}
+				
+			<form method="post" action="/guardarResultado/">{% csrf_token %}
+				<td>
+					<input type="radio" name="resultado" value="1" required>
+					<label for="uno"><b>1</b></label>
+					<input type="radio" name="resultado" value="X">
+					<label for="x"><b>X</b></label>
+					<input type="radio" name="resultado" value="2">
+					<label for="dos"><b>2</b></label>
+					<input type="hidden" name="id" value={{row.id}}>					
+				</td>
+			{% endif %}
+				<td> <input type="submit" value="Enviar"></td>
+			</form>
+		</tr>
+		{% endfor %}
+	</table>	
+	
+	<br>
+	<br>
+
+	
+	<table>
+		<form method="post" action="/guardarPleno/">{% csrf_token %}
+			<tr>
+				<th colspan="4">Pleno al 15</th>
+			</tr>
+			<tr>
+				<td>Local</td>
+				<td>{{ quiniela.pleno.local }}</td>
+				{% if user in quiniela.pleno.votantes.all %}
+				<td><b>0:</b>{%  widthratio quiniela.pleno.ceroL quiniela.pleno.votantes.all|length 100 %}%
+				    <b>1:</b>{%  widthratio quiniela.pleno.unoL quiniela.pleno.votantes.all|length 100 %}% 
+				    <b>2:</b>{%  widthratio quiniela.pleno.dosL quiniela.pleno.votantes.all|length 100 %}%
+				    <b>M:</b>{%  widthratio quiniela.pleno.masL quiniela.pleno.votantes.all|length 100 %}%
+				</td>
+				{% else %}
+				<td>
+					<input type="radio" name="plenoL" value="0" required>
+					<label for="cero"><b>0</b></label>
+					<input type="radio" name="plenoL" value="1">
+					<label for="uno"><b>1</b></label>
+					<input type="radio" name="plenoL" value="2">
+					<label for="dos"><b>2</b></label>
+					<input type="radio" name="plenoL" value="M">
+					<label for="m"><b>M</b></label>
+				</td>
+				<td></td>
+				{% endif %}
+			</tr>
+			<tr>
+				<td>Visitante</td>
+				<td>{{ quiniela.pleno.visitante }}</td>
+				{% if user in quiniela.pleno.votantes.all %}
+				<td><b>0:</b>{%  widthratio quiniela.pleno.ceroV quiniela.pleno.votantes.all|length 100 %}%
+				    <b>1:</b>{%  widthratio quiniela.pleno.unoV quiniela.pleno.votantes.all|length 100 %}% 
+				    <b>2:</b>{%  widthratio quiniela.pleno.dosV quiniela.pleno.votantes.all|length 100 %}%
+				    <b>M:</b>{%  widthratio quiniela.pleno.masV quiniela.pleno.votantes.all|length 100 %}%
+				</td>
+				{% else %}
+				<td>
+					<input type="radio" name="plenoV" value="0" required>
+					<label for="cero"><b>0</b></label>
+					<input type="radio" name="plenoV" value="1">
+					<label for="uno"><b>1</b></label>
+					<input type="radio" name="plenoV" value="2">
+					<label for="dos"><b>2</b></label>
+					<input type="radio" name="plenoV" value="M">
+					<label for="m"><b>M</b></label>
+					<input type="hidden" name="id" value={{pleno.quiniela.id}}>
+				</td>
+				<td> <input type="submit" value="Enviar"></td>
+				{% endif %}
+		</form>		
+			</tr>
+	</table>
+	<br>
+	<a href="../cargaQuiniela">Actualiza a la nueva jornada</a>
+	
+	  {% else %}
+	</ul>
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+{% endblock %}

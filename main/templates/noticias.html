@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+	<ul>
+	  <li><a href="/">Inicio</a></li>
+	  <li><a href="/quiniela">Quiniela</a></li>
+	  <li><a class="active">Noticias</a></li>
+	  {% if user.is_authenticated %}
+	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	</ul>
+	  <h2 align="center">Consulta la actualidad</h2>
+	  	<article>
+	  		<div class="buscador">
+			  	<form method="post" action="/buscaNoticia/">{% csrf_token %}
+				  <label for="buscaNoticia">Busca entre las noticas:</label>
+				  <input type="search" id="buscaNoticia" name="texto">
+				  <input type="submit">
+				</form>
+			</div>
+			<br>
+	  	{% for n in noticias %}
+	  		<article>
+		    	<h3>{{ n.titular }}</h3>
+		    	<p>{{ n.resumen }}</p>
+		    {% if n.division == "1" %}
+		    	<p><b>Liga Santander</b></p>
+		    {% else %}
+		    	<p><b>Liga Smartbank</b></p>
+		    {% endif %}
+		    	<a href={{n.link}}>Accede a la fuente</a>
+
+		    </article>
+		    <hr>
+		{% endfor %}
+		{% if noticiasPrimera %}
+			<table class="tablaNoticias">
+			<tr>
+				<td class = "noticia"><h3 align="center">Liga Santander</h3></td>
+				<td class = "noticia"><h3 align="center">Liga Smartbank</h3></td>
+			</tr>
+				<td class = "noticia">
+	  				{% for n in noticiasPrimera %}
+	  					<article>
+					    	<h3>{{ n.titular }}</h3>
+					    	<p>{{ n.resumen }}</p>
+					    	<a href={{n.link}}>Accede a la fuente</a>
+		    			</article>
+		    		<hr>
+					{% endfor %}
+				</td>
+				<td class = "noticiaDerecha">
+	  				{% for n in noticiasSegunda %}
+	  					<article>
+					    	<h3>{{ n.titular }}</h3>
+					    	<p>{{ n.resumen }}</p>
+					    	<a href={{n.link}}>Accede a la fuente</a>
+		    			</article>
+		    		<hr>
+					{% endfor %}
+				</td>
+			</table>
+		{% endif%}
+		{% if mensajeError %}
+			<h1 align="center">{{mensajeError}}</h1>
+		{% endif %}
+	  	<a href="../cargaNoticias">Actualiza las noticias</a>
+	  </article>
+	  {% else %}
+	</ul>
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+  {% endblock %}

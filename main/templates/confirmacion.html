@@ -1,0 +1,30 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}
+<h1> Carga de la Base de datos. Confirmacion </h1>
+{% endblock %}
+
+  {% block content %}
+  <ul>
+	  <li><a href="/">Inicio</a></li>
+	  <li><a href="/quiniela">Quiniela</a></li>
+	  <li><a href="/noticias">Noticias</a></li>
+	  {% if user.is_authenticated %}
+	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	</ul>
+	<div class = "confirmacion">
+		<h3>AVISO: Este proceso puede ser lento, borra la base de datos actual y requiere conexion a internet</h3>
+	    <form id='formulario' method='post' action=''>{% csrf_token %}
+			<input type="submit" name="Aceptar" value="Aceptar">
+			<input type="submit" name="Cancelar" value="Cancelar">
+		</form>
+	</div>
+    
+	{% else %}
+	</ul>
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+  {% endblock %}

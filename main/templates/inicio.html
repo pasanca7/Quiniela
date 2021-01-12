@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+	<ul>
+	  <li><a class="active" href="">Inicio</a></li>
+	  <li><a href="/quiniela">Quiniela</a></li>
+	  <li><a href="/noticias">Noticias</a></li>
+	  {% if user.is_authenticated %}
+	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	</ul>
+	<div class="inicio">
+		  <h1> Bienvenido, {{ user.first_name }}</h1>
+		  <br><br>
+		  <h3>Registros:</h3>
+		  	<h3>Quiniela para la jornada {{jornada}} de la temporada {{temporada}}</h3>
+		  	<h3>{{noticiasPrimera}} noticias de la Liga Santander</h3>
+		  	<h3>{{noticiasSegunda}} noticias de la Liga Smartbank</h3>  
+	</div>
+	  {% else %}
+	</ul>
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+  {% endblock %}
