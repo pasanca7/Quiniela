@@ -6,13 +6,17 @@
 {% endblock %}
 
   {% block content %}
-  <ul>
+<ul class = "navbar">
 	  <li><a href="/">Inicio</a></li>
 	  <li><a href="/quiniela">Quiniela</a></li>
 	  <li><a href="/noticias">Noticias</a></li>
 	  {% if user.is_authenticated %}
-	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
-	</ul>
+	  <li style="float:right">
+	  		<form method="get" action="{% url 'logout' %}">
+ 				<button id="logout" type="submit">Log out
+			</form>
+	  </li>	
+</ul>
 		<h3>{{mensaje}}</h3>
 	{% else %}
 	</ul>

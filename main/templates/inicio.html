@@ -3,12 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-	<ul>
+	<ul class = "navbar">
 	  <li><a class="active" href="">Inicio</a></li>
 	  <li><a href="/quiniela">Quiniela</a></li>
 	  <li><a href="/noticias">Noticias</a></li>
 	  {% if user.is_authenticated %}
-	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	  <li style="float:right">
+	  		<form method="get" action="{% url 'logout' %}">
+ 				<button id="logout" type="submit">Log out
+			</form>
+		</li>
 	</ul>
 	<div class="inicio">
 		  <h1> Bienvenido, {{ user.first_name }}</h1>

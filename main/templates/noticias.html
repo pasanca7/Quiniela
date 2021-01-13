@@ -3,12 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-	<ul>
+	<ul class = "navbar">
 	  <li><a href="/">Inicio</a></li>
 	  <li><a href="/quiniela">Quiniela</a></li>
 	  <li><a class="active">Noticias</a></li>
 	  {% if user.is_authenticated %}
-	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	  <li style="float:right">
+	  		<form method="get" action="{% url 'logout' %}">
+ 				<button id="logout" type="submit">Log out
+			</form>
+		</li>
 	</ul>
 	  <h2 align="center">Consulta la actualidad</h2>
 	  	<article>
@@ -16,7 +20,7 @@
 			  	<form method="post" action="/buscaNoticia/">{% csrf_token %}
 				  <label for="buscaNoticia">Busca entre las noticas:</label>
 				  <input type="search" id="buscaNoticia" name="texto">
-				  <input type="submit">
+				  <input  class="button2" type="submit">
 				</form>
 			</div>
 			<br>
@@ -65,7 +69,9 @@
 		{% if mensajeError %}
 			<h1 align="center">{{mensajeError}}</h1>
 		{% endif %}
-	  	<a href="../cargaNoticias">Actualiza las noticias</a>
+	  	<form method="get" action="../cargaNoticias">
+ 			<button class="button2" type="submit">Actualiza las noticias
+		</form>
 	  </article>
 	  {% else %}
 	</ul>

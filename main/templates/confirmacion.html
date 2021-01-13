@@ -7,18 +7,22 @@
 {% endblock %}
 
   {% block content %}
-  <ul>
+<ul class = "navbar">
 	  <li><a href="/">Inicio</a></li>
 	  <li><a href="/quiniela">Quiniela</a></li>
 	  <li><a href="/noticias">Noticias</a></li>
 	  {% if user.is_authenticated %}
-	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+	<li style="float:right">
+	  		<form method="get" action="{% url 'logout' %}">
+ 				<button id="logout" type="submit">Log out
+			</form>
+		</li>
 	</ul>
 	<div class = "confirmacion">
 		<h3>AVISO: Este proceso puede ser lento, borra la base de datos actual y requiere conexion a internet</h3>
 	    <form id='formulario' method='post' action=''>{% csrf_token %}
-			<input type="submit" name="Aceptar" value="Aceptar">
-			<input type="submit" name="Cancelar" value="Cancelar">
+			<input class="button1" type="submit" name="Aceptar" value="Aceptar">
+			<input class="button3" type="submit" name="Cancelar" value="Cancelar">
 		</form>
 	</div>
     

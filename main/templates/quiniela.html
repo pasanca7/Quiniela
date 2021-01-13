@@ -3,12 +3,16 @@
 {% block title %}Quiniela!{% endblock %}
 	
 {% block content %}
-	<ul>
+	<ul class = "navbar">
 	  <li><a href="/">Inicio</a></li>
 	  <li><a class="active">Quiniela</a></li>
 	  <li><a href="/noticias">Noticias</a></li>
 	  {% if user.is_authenticated %}
-	  <li style="float:right"><a href="{% url 'logout' %}">Log out</a></li>
+		<li style="float:right">
+	  		<form method="get" action="{% url 'logout' %}">
+ 				<button id="logout" type="submit">Log out
+			</form>
+		</li>
 	</ul>
 	<h1 align="center">Temporada {{quiniela.temporada}}, jornada {{quiniela.jornada}}</h1>
 	
@@ -37,10 +41,11 @@
 					<label for="x"><b>X</b></label>
 					<input type="radio" name="resultado" value="2">
 					<label for="dos"><b>2</b></label>
-					<input type="hidden" name="id" value={{row.id}}>					
+					<input type="hidden" name="id" value={{row.id}}>	
+					<input id="quiniela" class="button1" type="submit" value="Enviar" style="float: right;">
+									
 				</td>
 			{% endif %}
-				<td> <input type="submit" value="Enviar"></td>
 			</form>
 		</tr>
 		{% endfor %}
@@ -99,14 +104,16 @@
 					<label for="m"><b>M</b></label>
 					<input type="hidden" name="id" value={{pleno.quiniela.id}}>
 				</td>
-				<td> <input type="submit" value="Enviar"></td>
+				<td> <input class="button1" type="submit" value="Enviar"></td>
 				{% endif %}
 		</form>		
 			</tr>
 	</table>
 	<br>
-	<a href="../cargaQuiniela">Actualiza a la nueva jornada</a>
 	
+	<form method="get" action="../cargaQuiniela">
+ 		<button class="button2" type="submit">Actualiza a la nueva jornada
+	</form>
 	  {% else %}
 	</ul>
   <p>You are not logged in</p>
